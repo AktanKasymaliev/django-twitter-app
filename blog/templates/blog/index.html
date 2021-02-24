@@ -13,11 +13,13 @@ Posts List
 {% for el in posts %}
         <div class="card mb-5">
             <div class="card-header">
-                {{el.date_pub}}
+                {{el.pub_date}}
             </div>
+            {{ el.created_by }}
             <div class="card-body">
                 <h5 class="card-title">{{ el.title }}</h5>
                 <p class="card-text">{{ el.body|truncatewords:10 }}</p>
+                <a href="{% url 'post_detail' pk=el.id%}" class="btn btn-primary">Read</a>
             </div>
         </div>
 

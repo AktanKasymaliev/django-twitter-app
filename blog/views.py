@@ -10,4 +10,9 @@ def posts_list(request):
     }
     return render(request, 'blog/index.html', context)
 
-
+def post_detail(request, pk):
+    post = Post.objects.get(id=pk)
+    context = {
+        'post':post
+    }
+    return render(request, 'blog/post_detail.html', context)
