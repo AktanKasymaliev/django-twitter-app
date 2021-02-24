@@ -1,12 +1,14 @@
 from .models import Post, PostImage
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
+from .models import *
 
 
-def posts_list(requests, pk):
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    return render(request, '', {'posts': posts})
+def posts_list(request):
+    posts = Post.objects.all()
+    return render(request, 'blog/index.html', {'posts':posts})
+
 
 def new_posts(request, pk):
     if request.method == 'POST':
@@ -30,7 +32,10 @@ def edit_post(request, pk):
             return redirect('post_detail', pk=post.pk)
     else:
         form = PostForm(instance=post)
-    return render(request, '', {'form': form})
+    return render(request, 'edit_post.html', {'form': form})
 
-def post_delete(request, pk):
-    pass
+def delete_post(request, post_id=None):
+    delete_post=Post.objects.get(id=post_id)
+    delete_post.delete()
+    return HttpResponseRedirect
+    
