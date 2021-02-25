@@ -1,5 +1,5 @@
 body {
-    background-color: blue; 
+    background-image: url(../img/more-leaves.png); 
 }
 
 .logo {
@@ -14,3 +14,4 @@ body {
 .logo a:active {
     text-decoration: none;
 }
+

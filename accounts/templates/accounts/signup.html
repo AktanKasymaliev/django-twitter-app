@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Signing Up
+{% endblock %}
+
+{% block content %}
+<div class='container'>
+    <h1 class="text-center logo my-4">
+        <a href="{% url 'posts_list' %}">Twits</a>
+    </h1>
+<div class='row justify-content-center'>
+    <div class="col-lg-8 col-md-10 col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Sign Up</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type='sumbit' class='btn btn-primary btn-block'>Create account</button>
+                </form>
+            </div>
+            <div class="card-footer text-muted text-center">
+                Already have an account? <a href="#">Lets Log In!!!</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
