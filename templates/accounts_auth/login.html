@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Signing Up
+{% endblock %}
+
+{% block content %}
+<div class='container'>
+    <h1 class="text-center logo my-4">
+        <a href="{% url 'posts_list' %}">Twits</a>
+    </h1>
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-6 col-sm-8">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Log In</h3>
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <a href="{% url 'posts_list' %}"><button type="submit" class="btn btn-primary btn-block">Log In</button></a>
+                    </form>
+                </div>
+                <div class="card-footer text-muted text-center">
+                    New to Makers Boards? <a href="{% url 'signup' %}">Sign Up</a>
+                </div>
+                <div class="text-center py-2">
+                    <small>
+                        <a href="#" class="text-muted">Forgot your password?</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

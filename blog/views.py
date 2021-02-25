@@ -1,6 +1,8 @@
 from .models import Post, PostImage
 from django.shortcuts import render, redirect
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+
 from .models import *
 from .forms import *
 
@@ -16,6 +18,7 @@ def post_detail(request, pk):
     }
     return render(request, 'blog/post_detail.html', context)
 
+@login_required
 def new_twit(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
@@ -29,6 +32,7 @@ def new_twit(request):
         form = PostForm()
     return render(request, 'blog/new_posts.html', locals())
 
+@login_required
 def edit_twit(request, pk):
     post = Post.objects.get(id=pk)
     if request.method == "POST" and request.user == post.created_by:
@@ -43,6 +47,7 @@ def edit_twit(request, pk):
         form = PostForm(instance=post)
     return render(request, 'blog/edit_twit.html', locals())
 
+@login_required
 def delete_twit(request, pk):
     twit = Post.objects.get(id=pk)
     if request.method == 'POST' and request.user == post.created_by:
