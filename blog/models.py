@@ -12,6 +12,9 @@ class Post(models.Model):
     def __str__(self):
         return self.title
     
+    def get_absolute_url(self): # - генерация уролов для сопостовления дополнительных элементов в урле urls.py
+        return reverse('post_detail', kwargs={'pk':self.id})
+
     class Meta:
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
@@ -20,5 +23,20 @@ class PostImage(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE,
                             related_name='images')
     image = models.ImageField(upload_to='posts')
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments')
+    name = models.CharField(max_length=80)
+    email = models.EmailField()
+    body = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['created_on']
+
+    def __str__(self):
+        return 'Comment {} by {}'.format(self.body, self.name)
 
     
