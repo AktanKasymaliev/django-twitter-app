@@ -1,4 +1,12 @@
 {% extends 'blog/base_blog.html' %}
+{% load static %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+{% endblock %}
 
 {% block title %}
 {{ post.title }} - {{ post.created_by }}
@@ -7,14 +15,78 @@
 
 
 {% block content %}
-<h1 class="mt-5">
-    {{post.created_by}}: {{post.title}}
-</h1>
-
-
-    <h5><p class='card-text mt-5'>
-        {{post.body}}
-    </p>
-</h5>
-
+<div class="card mb-5" id='container'>
+    <div class="card-header">
+        <h3>{{ post.title }}</h3>
+    </div>
+    <div class="card-body">
+        <h5>{{ post.created_by }}:</h5>
+        <h5><p class="card-text">{{ post.body }}</p></h5>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                  <div class="page-header">
+                    <h4><small class="pull-right">45 comments</small> Comments </h4>
+                  </div> 
+                   <div class="comments-list">
+                       <div class="media">
+                           <p class="pull-right"><small>5 days ago</small></p>
+                            <a class="media-left" href="#">
+                              <img src="#">
+                            </a>
+                            <div class="media-body">
+                                
+                              <h4 class="media-heading user_name">Baltej Singh</h4>
+                              Wow! this is really great.
+                              
+                              <p><small><a href="">Like</a> - <a href="">Share</a></small></p>
+                            </div>
+                          </div>
+                       <div class="media">
+                           <p class="pull-right"><small>5 days ago</small></p>
+                            <a class="media-left" href="#">
+                              <img src="#">
+                            </a>
+                            <div class="media-body">
+                                
+                              <h4 class="media-heading user_name">Baltej Singh</h4>
+                              Wow! this is really great.
+                              
+                              <p><small><a href="">Like</a> - <a href="">Share</a></small></p>
+                            </div>
+                          </div>
+                       <div class="media">
+                           <p class="pull-right"><small>5 days ago</small></p>
+                            <a class="media-left" href="#">
+                              <img src="#">
+                            </a>
+                            <div class="media-body">
+                                
+                              <h4 class="media-heading user_name">Baltej Singh</h4>
+                              Wow! this is really great.
+                              
+                              <p><small><a href="">Like</a> - <a href="">Share</a></small></p>
+                            </div>
+                          </div>
+                       <div class="media">
+                           <p class="pull-right"><small>5 days ago</small></p>
+                            <a class="media-left" href="#">
+                              <img src="#">
+                            </a>
+                            <div class="media-body">
+                                
+                              <h4 class="media-heading user_name">Baltej Singh</h4>
+                              Wow! this is really great.
+                              
+                              <p><small><a href="">Like</a> - <a href="">Share</a></small></p>
+                            </div>
+                          </div>
+                   </div>
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
