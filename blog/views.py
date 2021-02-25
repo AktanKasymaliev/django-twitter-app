@@ -2,6 +2,7 @@ from .models import Post, PostImage
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import *
 from .forms import *
@@ -9,7 +10,16 @@ from .forms import *
 
 def posts_list(request):
     posts = Post.objects.all()
-    return render(request, 'blog/index.html', {'posts':posts})
+    page = request.GET.get('page')
+    paginator = Paginator(posts, 2)
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    return render(request, 'blog/index.html', {'posts':posts,
+                                                'page':page})
 
 def post_detail(request, pk):
     post = Post.objects.get(id=pk)
