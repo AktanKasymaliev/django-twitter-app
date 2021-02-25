@@ -8,21 +8,21 @@ Posts List
 
 {% block content %}
 <div class="mb-5">
-    <h1>Posts:</h1>
+    <h1>Twitts:</h1>
 </div>
 {% for el in posts %}
         <div class="card mb-5">
             <div class="card-header">
-                {{el.pub_date}}
+                {{el.date_pub}} by {{el.created_by}}
             </div>
-            {{ el.created_by }}
             <div class="card-body">
                 <h5 class="card-title">{{ el.title }}</h5>
-                <p class="card-text">{{ el.body|truncatewords:10 }}</p>
-                <a href="{% url 'post_detail' pk=el.id%}" class="btn btn-primary">Read</a>
+                <p class="card-text">{{ el.body|truncatewords:5 }}</p>
+                <a href="{% url 'post_detail' pk=el.id %}" class="btn btn-primary">Read</a>
+                <a href="{% url 'delete_twit' pk=el.id %}" class="btn btn-primary">Delete twit</a>
+                <a href="{% url 'edit_twit' pk=el.id %}" class="btn btn-primary">Edit twit</a>
             </div>
         </div>
-
 {% endfor %}
 
 {% endblock %}
