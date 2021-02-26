@@ -9,6 +9,7 @@ class Post(models.Model):
     body = models.TextField()
     created_by = models.ForeignKey(User, on_delete=models.CASCADE,
                                    related_name='create_posts')
+    image = models.ImageField(upload_to='images', blank=True)                              
     
     def __str__(self):
         return self.title
@@ -19,11 +20,6 @@ class Post(models.Model):
     class Meta:
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
-
-class PostImage(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE,
-                            related_name='images')
-    image = models.ImageField(upload_to='posts')
 
 class Comment(models.Model):
     post_comment = models.ForeignKey(Post, on_delete=models.CASCADE,

@@ -1,5 +1,8 @@
 from django.urls import path
 from .views import *
+from django.conf.urls.static import static
+from django.conf import settings
+
 
 
 urlpatterns = [
@@ -9,4 +12,4 @@ urlpatterns = [
     path('delete_twit/<int:pk>/', delete_twit, name='delete_twit'),
     path('edit/twit/<int:pk>/', edit_twit, name='edit_twit'),
     path('delete/comment/<int:pk>/', comment_delete, name='comment_delete'),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

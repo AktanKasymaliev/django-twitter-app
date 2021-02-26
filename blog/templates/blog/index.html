@@ -1,13 +1,17 @@
 {% extends 'blog/base_blog.html' %}
+{% load static %}
 
 {% block title %}
-Posts List
+Twits List
+{% endblock %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% endblock %}
 
 
-
 {% block content %}
-<div class="mb-5">
+<div class="mb-5" id="Twitts">
     <h1>Twitts:</h1>
 </div>
 {% for el in posts %}

@@ -1,4 +1,4 @@
-from .models import Post, PostImage, Comment
+from .models import Post, Comment
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
@@ -44,6 +44,7 @@ def new_twit(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
+            #TWIT
             twitt = form.save(commit=False)
             twitt.created_by = request.user
             twitt.date_pub = timezone.now()
@@ -52,6 +53,7 @@ def new_twit(request):
     else:
         form = PostForm()
     return render(request, 'blog/new_posts.html', locals())
+
 
 @login_required
 def edit_twit(request, pk):
