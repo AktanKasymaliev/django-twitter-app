@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 class Post(models.Model):
@@ -23,5 +24,21 @@ class PostImage(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE,
                             related_name='images')
     image = models.ImageField(upload_to='posts')
+
+class Comment(models.Model):
+    post_comment = models.ForeignKey(Post, on_delete=models.CASCADE,
+                                    related_name='comments')
+    author = models.CharField(max_length=50)
+    message = models.TextField()
+    sent_at = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Comment by {self.author} on {self.post_comment}"
+
+
+    class Meta:
+        ordering = ['-sent_at']
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
 
     
