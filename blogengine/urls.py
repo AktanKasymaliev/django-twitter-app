@@ -11,4 +11,6 @@ urlpatterns = [
     path('', include('blog.urls')),
     path('signup/', signingup, name='signup'),
     path('login/', auth_views.LoginView.as_view(template_name='accounts_auth/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='accounts_auth/logout.html'), name='logout'),
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

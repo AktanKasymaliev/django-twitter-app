@@ -1,0 +1,12 @@
+
+body {
+    background-image: url(../img/more-leaves.png);
+}
+#container {
+    width: 800px;
+    height: 800px;
+}
+
+div #adding-comment {
+    padding:50px;
+}
