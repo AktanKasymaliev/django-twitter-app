@@ -138,4 +138,13 @@ LOGIN_URL = 'login'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'botik43553typegame@gmail.com'
+EMAIL_HOST_PASSWORD = '12345678910h'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

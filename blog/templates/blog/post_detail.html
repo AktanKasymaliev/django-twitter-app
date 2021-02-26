@@ -1,6 +1,7 @@
 {% extends 'blog/base_blog.html' %}
 {% load static %}
-{% load crispy_forms_tags %}
+
+
 
 {% block stylesheet %}
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -14,8 +15,8 @@
 {% endblock %}
 
 
-
 {% block content %}
+
 <div class="card mb-5">
     <div class="card-header">
         <div class="post-heading">
@@ -34,7 +35,13 @@
     <div class="card-body">
         <h5 class="card-title">{{ post.title }}</h5>
         <p class="card-text">{{ post.body }}</p>
+        {% if post.image %}
+        <img src="{{ post.image.url }}"|default_if_none:"#">
+        {% endif %}
     </div>
+</div>
+<div class="mb-5" id="comment-count">
+    <h1>Comments: {{ comments.count }}</h1>
 </div>
 {% for comment in comments %}
 <div class="container mb-5">
@@ -61,10 +68,14 @@
     </div>
 </div>
 {% endfor %}
-<form method="post" style="margin-top: 1.3em;">
-    {{ form_comment.as_p }}
-    {% csrf_token %}
-    <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
-  </form>
+<div class="col-md-10 card mb-4  mt-3 ">
+    <div class="card-body">
+      <h5>Leave a comment</h5>
+      <form method="post" style="margin-top: 1.3em;">
+        {{ form_comment.as_p }}
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+      </form>
+    </div>
 {% endblock %}
 

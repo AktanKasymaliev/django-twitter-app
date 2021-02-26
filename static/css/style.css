@@ -2,12 +2,15 @@
 body {
     background-image: url(../img/vintage-wallpaper.png);
 }
-#container {
-    width: 800px;
-    height: 8000px;
+
+
+div .Twitts {
+    color: white;
 }
 
-
+.comment-count {
+    color: white;
+}
 
 div #adding-comment {
     padding:50px;
