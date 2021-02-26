@@ -8,4 +8,5 @@ urlpatterns = [
     path('new_twit/', new_twit, name='new_twit'),
     path('delete_twit/<int:pk>/', delete_twit, name='delete_twit'),
     path('edit/twit/<int:pk>/', edit_twit, name='edit_twit'),
+    path('delete/comment/<int:pk>/', comment_delete, name='comment_delete'),
 ]
