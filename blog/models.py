@@ -13,7 +13,10 @@ class Post(models.Model):
     body = models.TextField()
     created_by = models.ForeignKey(User, on_delete=models.CASCADE,
                                    related_name='create_posts')
-    image = models.ImageField(upload_to='images', blank=True)                              
+    image = fields.ImageField(blank=True, help_text="Minimal reslution for image: 100x100\nMax resolution for image: 1000x1000", upload_to='images', dependencies=[
+        FileDependency(attname='image_jpeg', processor=ImageProcessor(
+            format='JPEG', scale={'max_width': 600, 'max_height': 600})),
+              ])                    
     
     def __str__(self):
         return self.title

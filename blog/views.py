@@ -57,9 +57,8 @@ def post_detail(request, pk):
 @login_required
 def new_twit(request):
     if request.method == 'POST':
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            #TWIT
             twitt = form.save(commit=False)
             twitt.created_by = request.user
             twitt.date_pub = timezone.now()
@@ -74,12 +73,13 @@ def new_twit(request):
 def edit_twit(request, pk):
     post = Post.objects.get(id=pk)
     if request.method == "POST" and request.user == post.created_by:
-        form = PostForm(request.POST, instance=post)
+        form = PostForm(request.POST,request.FILES,instance=post)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.created_by = request.user
-            post.date_pub = timezone.now()
-            post.save()
+            post_e = form.save(commit=False)
+            post_e.created_by = request.user
+            post_e.date_pub = timezone.now()
+            post_e.image = request.FILES['image']
+            post_e.save()
             return redirect('posts_list')
     else:
         form = PostForm(instance=post)
@@ -88,7 +88,7 @@ def edit_twit(request, pk):
 @login_required
 def delete_twit(request, pk):
     twit = Post.objects.get(id=pk)
-    if request.method == 'POST' and request.user == post.created_by:
+    if request.method == 'POST' and request.user == twit.created_by:
         try:
             twit.delete()
             return redirect('posts_list')
@@ -106,3 +106,16 @@ def comment_delete(request, pk):
     return render(request, 'blog/comment_delete.html', {'comment':comment,
                                                             'post':post,
                                                             'user':request.user})
+
+
+def delete_image(request, pk):
+    twit = Post.objects.get(id=pk)
+    image = twit.image
+    if request.method == "POST" and request.user == post.created_by:
+        try:
+            twit.objects.get(id=pk).image_jpeg.delete(save=True)
+        except post.DoesNotExist:
+            return HttpResponseNotFound("<h2>Picture is not found</h2>")
+    return render(request, 'blog/delete_image.html', locals())
+
+        

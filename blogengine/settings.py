@@ -38,9 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     #other apps
     'crispy_forms',
     'widget_tweaks',
+    'smartfields',
+    'django_cleanup',
     
 
     # apps

@@ -1,7 +1,7 @@
 {% extends 'blog/base_blog.html' %}
 
 {% block title %}
-Posts List
+New twit
 {% endblock %}
 
 
@@ -10,7 +10,7 @@ Posts List
 <div class="mb-5">
     <h1>New twit:</h1>
 </div>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Post it!">
