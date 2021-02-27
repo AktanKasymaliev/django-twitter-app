@@ -7,11 +7,14 @@ Edit twit
 
 
 {% block content %}
-<div class="mb-5">
+<div class="mb-5" style="color: white;">
     <h1>Edit twit:</h1>
 </div>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
+    {% if post.image %}
+    <a href="{% url 'delete_image' pk=post.id%}"><img src="{{ post.image.url }}"|default_if_none:"#"></a>
+    {% endif %}
     {{ form.as_p }}
     <input type="submit" value="Edit it!">
 </form>
