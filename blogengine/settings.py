@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     #other apps
     'crispy_forms',
     'widget_tweaks',
+    
 
     # apps
     'blog',
@@ -56,6 +57,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+SITE_ID = 1
 
 ROOT_URLCONF = 'blogengine.urls'
 
