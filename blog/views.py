@@ -23,9 +23,19 @@ def posts_list(request):
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, id=pk)
+    ccc = post.comments.all()
     comments = post.comments.all()
     new_comment = None
-    if request.method == "POST" and request.user == post.created_by :
+    page_comm = request.GET.get('page')
+    paginator = Paginator(comments, 4)
+    try:
+        comments = paginator.page(page_comm)
+    except PageNotAnInteger:
+        comments = paginator.page(1)
+    except EmptyPage:
+        comments = paginator.page(paginator.num_pages)
+
+    if request.method == "POST":
         form_comment = CommentForm(request.POST)
         if form_comment.is_valid():
             new_comment = form_comment.save(commit=False)
@@ -37,7 +47,12 @@ def post_detail(request, pk):
             raise Exception('Form is not valid')
     else:
         form_comment = CommentForm()
-    return render(request, 'blog/post_detail.html', locals())
+    return render(request, 'blog/post_detail.html', {'page_comm':page_comm,
+                                                    'post':post,
+                                                    'comments':comments,
+                                                    'ccc':ccc,
+                                                    'new_comment':new_comment,
+                                                    'form_comment':form_comment})
 
 @login_required
 def new_twit(request):
@@ -80,7 +95,8 @@ def delete_twit(request, pk):
         except post.DoesNotExist:
             return HttpResponseNotFound("<h2>Person not found</h2>")
     return render(request, 'blog/delete_twit.html', locals())
-    
+
+@login_required
 def comment_delete(request, pk):
     comment = get_object_or_404(Comment,id=pk)
     post = get_object_or_404(Post, pk=comment.post_comment.pk)
@@ -89,4 +105,4 @@ def comment_delete(request, pk):
         return redirect(post.get_absolute_url())
     return render(request, 'blog/comment_delete.html', {'comment':comment,
                                                             'post':post,
-                                                            'user_':request.user})
+                                                            'user':request.user})
