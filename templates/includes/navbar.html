@@ -1,0 +1,35 @@
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'posts_list' %}">Twitter</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'posts_list' %}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'new_twit'%}">New twit</a>
+              </li>
+            </ul>
+            {% if user.is_authenticated %}
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{% url 'my_profile' username=user.username %}" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      {{ user.username }}
+                    </a>
+                </li>
+            {% else %}
+            <form class="form-inline ml-auto" style="margin-right: 5px;">
+              <a href="{% url 'login' %}" class="btn btn-outline-secondary">Log In</a>
+              <a href="{% url 'signup' %}" class="btn btn-primary ml-2">Sign Up</a>
+            </form>
+            {% endif %}
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit" style="margin-left: 5px;">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>

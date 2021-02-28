@@ -1,0 +1,44 @@
+body {
+    background-image: url(../img/vintage-wallpaper.png);
+}
+
+aside {
+    float: left;
+    background: #fffdfd;
+    width: 20%;
+    padding: 2.5%;
+    height: 100vh;
+    color: rgb(49, 46, 204);
+    border-right: 5px solid #3c1ccc;
+}
+
+aside img {
+    width: 70px;
+    float: left;
+}
+
+aside .logo {
+    font-size: 30px;
+    margin-left: 10px;
+    font-weight:bold;
+}
+
+aside .username {
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+aside .menu {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+aside .about-subs {
+    margin-top: 20px;
+    margin-left: 10px;
+    font-size: 30px;
+}
+
+aside .list {
+    margin-top: 10px;
+}

@@ -39,7 +39,7 @@
                       {{ user.username }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
-                      <a class="dropdown-item" href="#">My Account</a>
+                      <a class="dropdown-item" href="{% url 'my_profile' username=user.username%}">My Account</a>
                       <a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
