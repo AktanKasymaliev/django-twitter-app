@@ -1,4 +1,5 @@
 from .models import Post, Comment
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
@@ -100,14 +101,14 @@ def delete_twit(request, pk):
 def comment_delete(request, pk):
     comment = get_object_or_404(Comment,id=pk)
     post = get_object_or_404(Post, pk=comment.post_comment.pk)
-    if request.method == "POST" and request.user == post.created_by:
+    if (request.method == "POST" and request.user == post.created_by) or request.user == comment.author:
         comment.delete()
         return redirect(post.get_absolute_url())
     return render(request, 'blog/comment_delete.html', {'comment':comment,
                                                             'post':post,
                                                             'user':request.user})
 
-
+@login_required
 def delete_image(request, pk):
     twit = Post.objects.get(id=pk)
     image = twit.image
@@ -118,4 +119,15 @@ def delete_image(request, pk):
             return HttpResponseNotFound("<h2>Picture is not found</h2>")
     return render(request, 'blog/delete_image.html', locals())
 
-        
+@login_required
+def my_profile(request, username):
+    user = get_object_or_404(User, username=username)
+    user_twits = Post.objects.filter(user.username==user)
+    context = {
+        'username':user,
+        'user_twits':user_twits
+    }
+    print(user_twits)
+    print()
+    print(user)
+    return render(request, 'blog/my_profile.html', context)
