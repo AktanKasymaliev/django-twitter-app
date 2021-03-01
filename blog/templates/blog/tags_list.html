@@ -1,0 +1,40 @@
+{% extends 'blog/base_blog.html' %}
+{% load static %}
+
+{% block title %}
+Twits List
+{% endblock %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="mb-5" style="color: white;">
+    <h1>Twitts: </h1>
+</div>
+{% for tag in tag_twits %}
+<div class="card mb-5" style="border-radius: 20px;">
+    <div class="card-header">
+        {{tag.date_pub}} by {{tag.created_by}}
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{{ tag.title }}</h5>
+        <p class="card-text">{{ tag.body|truncatewords:5 }}</p>
+        <a href="{% url 'post_detail' pk=tag.id %}" class="btn btn-primary">Read</a>
+        {% if user.is_authenticated and user == tag.created_by %}
+        <a href="{% url 'delete_twit' pk=tag.id %}" class="btn btn-primary">Delete twit</a>
+        <a href="{% url 'edit_twit' pk=tag.id %}" class="btn btn-primary">Edit twit</a>
+        {% endif %}
+    </div>
+    <div class="card-header">
+        {% if tag.tag %}
+        Tag: <a href="{% url 'tag_list' tag_name=tag.tag %}">{{ tag.tag }}</a>
+        {% else %}
+        Tag: <a href="#">None</a>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

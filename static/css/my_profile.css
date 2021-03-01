@@ -23,22 +23,64 @@ aside .logo {
     font-weight:bold;
 }
 
+
+aside .user:hover {
+    color: wheat;
+    text-decoration: none;
+}
+
 aside .username {
     font-size: 20px;
     margin-left: 10px;
 }
 
 aside .menu {
-    margin-top: 40px;
+    margin-left: 6px;
+    margin-top: 20px;
     margin-bottom: 20px;
+    font-size: 25px;
 }
 
 aside .about-subs {
-    margin-top: 20px;
-    margin-left: 10px;
-    font-size: 30px;
+    margin-top: 30px;
+    margin-left: 6px;
+    font-size: 20px;
 }
 
-aside .list {
-    margin-top: 10px;
+
+aside ul {list-style: none;}
+aside ul li {
+    display: block;
+    margin-top: 20px;
+    transition: all .6s ease;
 }
+
+aside ul li:hover, aside ul a:hover {
+    color: wheat;
+    text-decoration: none;
+    transform: scale(1.05);
+}
+
+main .features {
+    float: left;;
+    text-align: center;
+    width: 75%;
+}
+
+#warning {
+    color: blue;
+    transform: scale(1.06);
+    transition: all .6s ease;
+}
+#warningtwo:hover {
+    color: cadetblue;
+    transition: all .6s ease;
+    transform: scale(1.10);
+    text-decoration: none;
+
+    
+}
+/* main .features h1 {
+    font-size: 50px;
+} */
+
