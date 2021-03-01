@@ -28,6 +28,13 @@ Twits List
                 <a href="{% url 'edit_twit' pk=el.id %}" class="btn btn-primary">Edit twit</a>
                 {% endif %}
             </div>
+            <div class="card-header">
+              {% if el.tag %}
+              Tag: <a href="{% url 'tag_list' tag_name=el.tag %}">{{ el.tag }}</a>
+              {% else %}
+              Tag: <a href="#">None</a>
+              {% endif %}
+          </div>
         </div>
 {% endfor %}
 

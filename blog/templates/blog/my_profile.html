@@ -15,19 +15,77 @@
 	<aside>
 		<img src="http://bootdey.com/img/Content/user_1.jpg" alt="ProfileAvatar" style="border-radius: 20px;">
 		<span class="logo">Profile: </span>
-		<a href=""><span class="username">@{{ user.username }}</span></a>
+		<a href="" class='user'><span class="username">@{{ user.username }}</span></a>
+		<br>
 		<span class="about-subs">Subscribers: 10000</span>
-		<span class="about-subs">Followers 10000</span>
-		<span class="about-subs">Twits {{ user_twits.count }}</span>
+		<br>
+		<span class="about-subs">Followers: 10000</span>
+		<br>	
+		<span class="about-subs">Twits: {{ twits_user.count }}</span>
 		<h3 class='menu'>Menu: </h3>
 		<ul>
 			<h5><a href="{% url 'posts_list' %}"><li>Main page</li></a></h5>
 			<h5><a href="#"><li>Settings</li></a></h5>
 			<h5><a href="{% url 'new_twit' %}" ><li>New twit</li></a></h5>
+			<h5><a href="{% url 'logout' %}" ><li>Log out</li></a></h5>
 		</ul>
 	</aside>
 	<main>
-
+		<div class="features">
+		<div class="container mt-5">
+			<div class="row">
+				<div class="col-6 offset-md-2">
+					<div class="mb-5" style="color: white; text-align: center;">
+						<h1>My Twitts</h1>
+					</div>
+					{% if user_twits %}
+					{% for el in user_twits %}
+					<div class="card mb-5" style="border-radius: 20px;">
+						<div class="card-header">
+							{{el.date_pub}} by {{el.created_by}}
+						</div>
+						<div class="card-body">
+							<h5 class="card-title">{{ el.title }}</h5>
+							<p class="card-text">{{ el.body|truncatewords:5 }}</p>
+							<a href="{% url 'post_detail' pk=el.id %}" class="btn btn-primary">Read</a>
+							{% if user.is_authenticated and user == el.created_by %}
+							<a href="{% url 'delete_twit' pk=el.id %}" class="btn btn-primary">Delete twit</a>
+							<a href="{% url 'edit_twit' pk=el.id %}" class="btn btn-primary">Edit twit</a>
+							{% endif %}
+						</div>
+					</div>
+					{% endfor %}
+					{% else %}
+						<h3 id="warning">
+						You dont have any twits!
+						<br>
+						<br>
+						<h5><a href="" id="warningtwo">But you can add new twit!</a></h5>
+						</h3>
+					{% endif %}
+					{% if user_twits.has_other_pages %}
+					<nav aria-label="..." style="margin-left:100px;">
+						<ul class="pagination pagination-lg">
+							{% if user_twits.has_previous %}
+						  <li class="page-item active" aria-current="page">
+							<a class="page-link" href="?page={{ user_twits.previous_page_number }}">Previous</a>
+						  </li>
+						  {% endif %}
+						  {% for i in user_twits.paginator.page_range %}
+						  <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+						  {% endfor %}
+						  {% if user_twits.has_next %}
+						  <li class="page-item active" aria-current="page">
+							<a class='page-link' href="?page={{ user_twits.next_page_number }}">Next</a>
+						  </li>
+						  {% endif %}
+						</ul>
+					  </nav>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
 	</main>
 </body>
 </html>

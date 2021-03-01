@@ -4,13 +4,19 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 
 from .models import *
 from .forms import *
 
 
 def posts_list(request):
-    posts = Post.objects.all()
+    search_query = request.GET.get('search', '')
+    if search_query:
+        posts = Post.objects.filter(Q(title__icontains=search_query) | Q(body__icontains=search_query)).order_by('-date_pub')
+    else:
+        posts = Post.objects.all().order_by('-date_pub')
+
     page = request.GET.get('page')
     paginator = Paginator(posts, 2)
     try:
@@ -24,8 +30,8 @@ def posts_list(request):
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, id=pk)
-    ccc = post.comments.all()
-    comments = post.comments.all()
+    ccc = post.comments.all().order_by('-sent_at')
+    comments = post.comments.all().order_by('-sent_at')
     new_comment = None
     page_comm = request.GET.get('page')
     paginator = Paginator(comments, 4)
@@ -121,13 +127,27 @@ def delete_image(request, pk):
 
 @login_required
 def my_profile(request, username):
-    user = get_object_or_404(User, username=username)
-    user_twits = Post.objects.filter(user.username==user)
+    user = User.objects.get(username=username)
+    user_twits = Post.objects.filter(created_by=user).order_by('-date_pub')
+    page = request.GET.get('page')
+    paginator = Paginator(user_twits, 2)
+    try:
+        user_twits = paginator.page(page)
+    except PageNotAnInteger:
+        user_twits = paginator.page(1)
+    except EmptyPage:
+        user_twits = paginator.page(paginator.num_pages)
     context = {
+        'twits_user':Post.objects.filter(created_by=user),
         'username':user,
-        'user_twits':user_twits
+        'page':page,
+        'user_twits':user_twits,
     }
-    print(user_twits)
-    print()
-    print(user)
     return render(request, 'blog/my_profile.html', context)
+
+def tag_list(request, tag_name):
+    tag_twits = Post.objects.filter(tag__iexact=tag_name)
+    context = {
+        'tag_twits':tag_twits,
+    }
+    return render(request, 'blog/tags_list.html', context)
