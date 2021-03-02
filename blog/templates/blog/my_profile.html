@@ -66,6 +66,8 @@
 						<br>
 						<h5><a href="{% url 'new_twit' %}" style="color: white;">You can add new twitt!</a></h5>
 					{% endif %}
+					
+					<!-- Paginations -->
 					{% if user_twits.has_other_pages %}
 					<nav aria-label="..." style="margin-left:100px;">
 						<ul class="pagination pagination-lg">
@@ -75,7 +77,11 @@
 						  </li>
 						  {% endif %}
 						  {% for i in user_twits.paginator.page_range %}
+						  {% if user_twits.number == i %}
 						  <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+						  {% elif i >  user_twits.number|add:-2 and i < user_twits.number|add:2 %}
+						  <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+						  {% endif %}
 						  {% endfor %}
 						  {% if user_twits.has_next %}
 						  <li class="page-item active" aria-current="page">

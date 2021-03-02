@@ -98,7 +98,11 @@
       </li>
       {% endif %}
       {% for i in comments.paginator.page_range %}
+      {% if comments.number == i %}
       <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% elif i >  comments.number|add:-2 and i < comments.number|add:2 %}
+      <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
       {% endfor %}
       {% if comments.has_next %}
       <li class="page-item">
