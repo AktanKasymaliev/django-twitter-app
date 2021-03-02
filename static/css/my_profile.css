@@ -67,18 +67,12 @@ main .features {
     width: 75%;
 }
 
-#warning {
-    color: blue;
-    transform: scale(1.06);
-    transition: all .6s ease;
-}
+
 #warningtwo:hover {
     color: cadetblue;
     transition: all .6s ease;
     transform: scale(1.10);
     text-decoration: none;
-
-    
 }
 /* main .features h1 {
     font-size: 50px;

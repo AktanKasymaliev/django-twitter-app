@@ -17,6 +17,7 @@
 		<span class="logo">Profile: </span>
 		<a href="" class='user'><span class="username">@{{ user.username }}</span></a>
 		<br>
+		<br>
 		<span class="about-subs">Subscribers: 10000</span>
 		<br>
 		<span class="about-subs">Followers: 10000</span>
@@ -27,6 +28,8 @@
 			<h5><a href="{% url 'posts_list' %}"><li>Main page</li></a></h5>
 			<h5><a href="#"><li>Settings</li></a></h5>
 			<h5><a href="{% url 'new_twit' %}" ><li>New twit</li></a></h5>
+			<br>
+			<h5><a href="{% url 'password_change' %}"><li>Change Password</li></a></h5>
 			<h5><a href="{% url 'logout' %}" ><li>Log out</li></a></h5>
 		</ul>
 	</aside>
@@ -36,7 +39,7 @@
 			<div class="row">
 				<div class="col-6 offset-md-2">
 					<div class="mb-5" style="color: white; text-align: center;">
-						<h1>My Twitts</h1>
+						<h1>My Twitts: </h1>
 					</div>
 					{% if user_twits %}
 					{% for el in user_twits %}
@@ -56,12 +59,12 @@
 					</div>
 					{% endfor %}
 					{% else %}
-						<h3 id="warning">
-						You dont have any twits!
+						<h2 style="color: white; text-align: center; font-weight: bold;">
+						You dont have any twitts!
+					</h2>	
 						<br>
 						<br>
-						<h5><a href="" id="warningtwo">But you can add new twit!</a></h5>
-						</h3>
+						<h5><a href="{% url 'new_twit' %}" style="color: white;">You can add new twitt!</a></h5>
 					{% endif %}
 					{% if user_twits.has_other_pages %}
 					<nav aria-label="..." style="margin-left:100px;">

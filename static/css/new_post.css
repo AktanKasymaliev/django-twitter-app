@@ -1,0 +1,18 @@
+body {
+    background-image: url(../img/vintage-wallpaper.png);
+}
+
+.mb-5 h1 {
+    color:white;
+    text-align: center;
+}
+
+.new-twit {
+    text-align: center;
+    background-color: white;
+    width: 100%;
+    border-radius: 20px;
+}
+.new-twit button {
+    margin-bottom: 10px;
+}

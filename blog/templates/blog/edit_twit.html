@@ -5,18 +5,31 @@ Edit twit
 {% endblock %}
 
 
-
 {% block content %}
-<div class="mb-5" style="color: white;">
+<div class="mb-5" style="color: white; text-align: center;">
     <h1>Edit twit:</h1>
 </div>
-<form method="post" enctype="multipart/form-data">
+<div class="edit-block" style="background-color: white; text-align: center; width: 100%; border-radius: 20px;">
+<form method="post" enctype="multipart/form-data" style="margin:20px;">
     {% csrf_token %}
     {% if post.image %}
-    <a href="{% url 'delete_image' pk=post.id%}"><img src="{{ post.image.url }}"|default_if_none:"#"></a>
+    <a href="{% url 'delete_image' pk=post.id%}"><img src="{{ post.image.url }}"|default_if_none:"#" style="margin-top: 20px; max-width: 400px; max-height: 300px;"></a>
     {% endif %}
-    {{ form.as_p }}
-    <input type="submit" value="Edit it!">
+    <br>
+        <span>Title</span>
+    {{ form.title }}
+    <br>
+    <span>Text</span>
+    {{ form.body }}
+    <br>
+    <span>Tag</span>
+    {{form.tag}}
+    <br>
+    <button class="btn btn-default">{{ form.image }}</button>
+    <br>
+    <br>
+    <button class='btn btn-primary' style="margin-bottom: 10px;">Edit</button>
 </form>
+</div>
 
 {% endblock %}

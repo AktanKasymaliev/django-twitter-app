@@ -85,7 +85,10 @@ def edit_twit(request, pk):
             post_e = form.save(commit=False)
             post_e.created_by = request.user
             post_e.date_pub = timezone.now()
-            post_e.image = request.FILES['image']
+            try:
+                post_e.image = request.FILES['image']
+            except:
+                pass
             post_e.save()
             return redirect('posts_list')
     else:
@@ -118,17 +121,23 @@ def comment_delete(request, pk):
 def delete_image(request, pk):
     twit = Post.objects.get(id=pk)
     image = twit.image
-    if request.method == "POST" and request.user == post.created_by:
+    if request.method == "POST" and request.user == twit.created_by:
         try:
-            twit.objects.get(id=pk).image_jpeg.delete(save=True)
+            image.delete(save=True)
+            return redirect('posts_list')
         except post.DoesNotExist:
             return HttpResponseNotFound("<h2>Picture is not found</h2>")
     return render(request, 'blog/delete_image.html', locals())
 
 @login_required
 def my_profile(request, username):
+    search_query = request.GET.get('search', '')
     user = User.objects.get(username=username)
-    user_twits = Post.objects.filter(created_by=user).order_by('-date_pub')
+    if search_query:
+        user_twits = Post.objects.filter(Q(created_by=user), Q(title__icontains=search_query) | Q(body__icontains=search_query)).order_by('-date_pub')
+    else:
+        user_twits = Post.objects.filter(created_by=user).order_by('-date_pub')
+
     page = request.GET.get('page')
     paginator = Paginator(user_twits, 2)
     try:

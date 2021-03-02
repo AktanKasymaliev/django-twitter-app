@@ -1,14 +1,18 @@
 {% extends 'base.html' %}
-
+{% load static %}
 
 {% block title %}
 Signing Up
 {% endblock %}
 
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class='container'>
-    <h1 class="text-center logo my-4">
-        <a href="{% url 'posts_list' %}">Twits</a>
+    <h1 class="text-center logo my-4" style="color: white;">
+        <a href="{% url 'posts_list' %}" style="color: white;">Twitter</a>
     </h1>
     <div class="row justify-content-center">
         <div class="col-lg-7 col-md-6 col-sm-8">
@@ -18,7 +22,7 @@ Signing Up
                     <form method="post" novalidate>
                         {% csrf_token %}
                         {{form.as_p}}
-                        <a href="{% url 'posts_list' %}"><button type="submit" class="btn btn-primary btn-block">Log In</button></a>
+                        <a href="{% url 'posts_list' %}"><button type="submit" class="btn btn-primary btn-block" style="width: 100px; margin-left: 70px;">Log In</button></a>
                     </form>
                 </div>
                 <div class="card-footer text-muted text-center">
