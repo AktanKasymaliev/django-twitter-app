@@ -52,7 +52,11 @@ Twits List
       </li>
       {% endif %}
       {% for i in posts.paginator.page_range %}
+      {% if posts.number == i %}
       <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% elif i >  posts.number|add:-2 and i < posts.number|add:2 %}
+      <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
       {% endfor %}
       {% if posts.has_next %}
       <li class="page-item active" aria-current="page">
