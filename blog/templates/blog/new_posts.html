@@ -1,19 +1,35 @@
 {% extends 'blog/base_blog.html' %}
+{% load static %}
 
 {% block title %}
 New twit
 {% endblock %}
 
-
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/new_post.css' %}">
+{% endblock %}
 
 {% block content %}
 <div class="mb-5">
     <h1>New twit:</h1>
 </div>
-<form method="post" enctype="multipart/form-data">
+<div class="new-twit">
+<form method="post" enctype="multipart/form-data" style="margin:20px;">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Post it!">
+    <br>
+    <span>Title</span>
+    {{ form.title }}
+    <br>
+    <span>Text</span>
+    {{ form.body }}
+    <br>
+    <span>Tag</span>
+    {{form.tag}}
+    <br>
+    <button class="btn btn-default">{{ form.image }}</button>
+    <br>
+    <br>
+    <button class="btn btn-primary">New twit!</button>
 </form>
-
+</div>
 {% endblock %}

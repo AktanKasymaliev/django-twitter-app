@@ -1,0 +1,22 @@
+body {
+    background-image: url(../img/vintage-wallpaper.png);
+}
+
+
+.delete-block {
+    width: 400px;
+    height: 150px;
+    font-style: italic;
+    font-weight: bold;
+    margin: 50px;
+    float: right;
+    border-radius: 20px;
+    background-color: white;
+    text-align: center;
+}
+
+#yes {
+    margin-left: 100px;
+    float: left;
+}
+

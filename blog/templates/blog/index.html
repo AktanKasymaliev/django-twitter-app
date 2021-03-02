@@ -22,6 +22,11 @@ Twits List
             <div class="card-body">
                 <h5 class="card-title">{{ el.title }}</h5>
                 <p class="card-text">{{ el.body|truncatewords:5 }}</p>
+                {% if el.image %}
+                <img src="{{ el.image.url }}"|default_if_none:"#" style="max-height: 300px; max-width: 300px;">
+                <br>
+                <br>
+                {% endif %}
                 <a href="{% url 'post_detail' pk=el.id %}" class="btn btn-primary">Read</a>
                 {% if user.is_authenticated and user == el.created_by %}
                 <a href="{% url 'delete_twit' pk=el.id %}" class="btn btn-primary">Delete twit</a>
@@ -57,4 +62,6 @@ Twits List
     </ul>
   </nav>
 {% endif %}
+
+
 {% endblock %}
