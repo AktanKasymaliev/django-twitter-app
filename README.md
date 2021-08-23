@@ -1,6 +1,6 @@
 # django-twitter-app
 We did this project when we were begginers
-Hello, in the first, you sould clone rep:
+# Hello, in the first, you sould clone rep:
 * cloning repository:
 ```
 git clone https://github.com/AktanKasymaliev/django-twitter-app.git
